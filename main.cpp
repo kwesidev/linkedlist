@@ -1,12 +1,12 @@
-#include <iostream>
+#include <iostream> 
 //kwesidev
 //playing around with LinkedList
 
 using namespace std;
 
-struct nodeType{
-int info;
-nodeType*link;
+struct nodeType {
+    int info;
+    nodeType*link;
 };
 
 //global variables;
@@ -15,224 +15,209 @@ nodeType*link;
 nodeType *first;
 
 
-void deletenode ();
+void deletenode();
 void destroylist();
 void insertnode();
-nodeType* search( int);
+nodeType* search(int);
 void showmenu();
 
 void displaydata();
-nodeType* buildListForward()
-{
-nodeType *first,*newNode, *last;
-int num;
-cout << "Enter a list of integers ending with -999."
-<< endl;
-cin >> num;
-first = NULL;
-while (num != -999)
-{
-newNode = new nodeType;
-newNode->info = num;
-newNode->link = NULL;
-if (first == NULL)
-{
-   first = newNode;
-   last = newNode;
-}
-else
-{
-   last->link = newNode;
-   last = newNode;
-}
-cin >> num;
-} //end while
 
-  return first;
+nodeType* buildListForward() {
+    nodeType *first, *newNode, *last;
+    int num;
+    cout << "Enter a list of integers ending with -999."
+            << endl;
+    cin >> num;
+    first = NULL;
+    while (num != -999) {
+        newNode = new nodeType;
+        newNode->info = num;
+        newNode->link = NULL;
+        if (first == NULL) {
+            first = newNode;
+            last = newNode;
+        } else {
+            last->link = newNode;
+            last = newNode;
+        }
+        cin >> num;
+    } //end while
+
+    return first;
 }
 
-int main(){
+int main() {
 
-int choi;
-showmenu();
-cin>>choi;
-while(choi!=-999){
-switch(choi){
+    unsigned int choi;
+    showmenu();
+    cin>>choi;
+    while (choi != -999) {
+        switch (choi) {
 
-  case 1:
-  first=buildListForward();
-  break;
+            case 1:
+                first = buildListForward();
+                break;
 
-  case 2:
-  insertnode();
+            case 2:
+                insertnode();
 
-  break;
+                break;
 
-  case 3:
+            case 3:
 
-  deletenode();
-
-
-  break;
-
- case 4:
- cout<<"*************************************************"<<endl;
-displaydata();
-cout<<"*************************************************"<<endl;
-  break;
-  default:
-  cout<<"Invalid value";
-
-}
-
- showmenu();
- cin>>choi;
-
-}
+                deletenode();
 
 
-return 0;
-}
+                break;
 
+            case 4:
+                cout << "*************************************************" << endl;
+                displaydata();
+                cout << "*************************************************" << endl;
+                break;
+            default:
+                cout << "Invalid value";
 
-void displaydata(){
-    nodeType*current;
-
-current=first;
-
-while(current!=NULL)
-{
-    cout<<current->info<<endl;
-    current=current->link;
-}
-
-
-}
-
-
-
-nodeType* search(int i){
-bool found=false;
-
-nodeType*current;
-current=first;
-
-while((current!=NULL)&&(found==false))
-{
-    if(current->info==i)
-            found=true;
-
-else
-
-    current=current->link;
-
-}
-
-
-if(found==false)
-    return NULL;
-
-
-return current;
-}
-
-
-void deletenode(){
-
-int x;
-cout<<"Element to be deleted ? ";
-cin>>x;
-
- nodeType*before,*current;
-if(first->info==x)  //delete if its first element in the list
-{
-    current=first;
-    first=first->link;
-
-    delete current;
-return;
-}
-
-bool found=false;
-
-current=first->link;
-before=first;
-
-
-
-   while((current!=NULL)&&(found==false))
-{
-
-    if(current->info==x)
-        found=true;
-        else
-        {
-            current=current->link;
-            before=before->link;
         }
 
+        showmenu();
+        cin>>choi;
+
+    }
+
+
+    return 0;
 }
 
-if(found==false)
-{
+void displaydata() {
+    nodeType*current;
 
-   cout<<"Cannot delete because the element does not exists"<<endl;
-   return;
+    current = first;
+
+    while (current != NULL) {
+        cout << current->info << endl;
+        current = current->link;
+    }
+
+
 }
 
+nodeType* search(int i) {
+    bool found = false;
 
-        before->link=current->link;
-         delete current;
+    nodeType*current;
+    current = first;
+
+    while ((current != NULL)&&(found == false)) {
+        if (current->info == i)
+            found = true;
+
+        else
+
+            current = current->link;
+
+    }
+
+
+    if (found == false)
+        return NULL;
+
+
+    return current;
+}
+
+void deletenode() {
+
+    int num;
+    cout << "Element to be deleted ? ";
+    cin>>num;
+
+    nodeType*before, *current;
+    if (first->info == x) //delete if its first element in the list
+    {
+        current = first;
+        first = first->link;
+
+        delete current;
+        return;
+    }
+
+    bool found = false;
+
+    current = first->link;
+    before = first;
+
+
+
+    while ((current != NULL)&&(found == false)) {
+
+        if (current->info == x)
+            found = true;
+        else {
+            current = current->link;
+            before = before->link;
+        }
+
+    }
+
+    if (found == false) {
+
+        cout << "Cannot delete because the element does not exists" << endl;
+        return;
+    }
+
+
+    before->link = current->link;
+    delete current;
 
 
 }
 
-void showmenu(){
-cout<<"1):Enter numbers"<<endl;
-cout<<"2):Inser Node after a particular number "<<endl;
-cout<<"3):Delete a node"<<endl;
-cout<<"4):Display DATA"<<endl;
+void showmenu() {
+    cout << "1):Enter numbers" << endl;
+    cout << "2):Inser Node after a particular number " << endl;
+    cout << "3):Delete a node" << endl;
+    cout << "4):Display DATA" << endl;
 }
 
+void insertnode() {
+    int number;
+    cout << "Enter a  number to be inserted after" << endl;
 
-void insertnode(){
-    int x;
-cout<<"Enter number to be inserted after"<<endl;
+    cin>>x;
 
-cin>>x;
-
-nodeType*current,*newnode;
-current=search(x);
-if(current==NULL)
-{
-    cerr<<"Node cannot be inserted !!" <<endl;
-    return;
-}
-newnode = new nodeType;
-cout<<"Enter the number you want to insert"<<endl;
-cin>>x;
-newnode->info=x;
-newnode->link=current->link;
-current->link=newnode;
+    nodeType*current, *newnode;
+    current = search(x);
+    if (current == NULL) {
+        cerr << "Node cannot be inserted !!" << endl;
+        return;
+    }
+    newnode = new nodeType;
+    cout << "Enter the number you want to insert" << endl;
+    cin>>x;
+    newnode->info = x;
+    newnode->link = current->link;
+    current->link = newnode;
 }
 
-void destroylist(){
+void destroylist() {
 
-   if(first==NULL)  //terminate if list is empty
+    if (first == NULL) //terminate if list is empty
         return;
 
-        nodeType*current;
+    nodeType*current;
 
-        nodeType*temp;
+    nodeType*temp;
 
-        current=first;
+    current = first;
 
-    while(current->link!=NULL){
+    while (current->link != NULL) {
 
-        temp=current;
+        temp = current;
         delete temp;
 
-        current=current->link;
+        current = current->link;
 
     }
 
